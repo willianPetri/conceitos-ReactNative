@@ -11,15 +11,6 @@ import {
 } from "react-native";
 
 export default function App() {
-  async function handleLikeRepository(id) {
-    const response = await api.post(`repositories/${id}/like`);
-
-    const repositoryIndex = repositories.findIndex(repository => repository.id === id);
-    
-    repositories[repositoryIndex] = response.data;
-    setRepositories([...repositories]);
-  }
-
   const [repositories, setRepositories] = useState([]);
 
   useEffect(() => {
@@ -27,6 +18,15 @@ export default function App() {
       setRepositories(response.data);
     });
   }, []);
+
+  async function handleLikeRepository(id) {
+    const response = await api.post(`repositories/${id}/like`);
+
+    const repositoryIndex = repositories.findIndex(repository => repository.id === id);
+
+    repositories[repositoryIndex] = response.data;
+    setRepositories([...repositories]);
+  }
 
   return (
     <>
